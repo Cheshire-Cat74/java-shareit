@@ -35,7 +35,7 @@ public class UserController {
 
     @GetMapping(value = "/{id}")
     public User getUserById(@PathVariable long id) throws NotFoundException {
-        log.info("Получен запрос GET /users/" + id);
+        log.info(String.format("Получен запрос GET /users/%s", id));
         return userService.getUserById(id);
     }
 
@@ -47,13 +47,13 @@ public class UserController {
 
     @PatchMapping(value = "/{id}")
     public User update(@RequestBody User user, @PathVariable long id) {
-        log.info("Получен запрос PATCH /users/" + id);
+        log.info(String.format("Получен запрос PATCH /users/%s", id));
         return userService.update(user, id);
     }
 
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable long id) {
-        log.info("Получен запрос DELETE /users/" + id);
+        log.info(String.format("Получен запрос DELETE /users/%s", id));
         userService.delete(id);
     }
 }

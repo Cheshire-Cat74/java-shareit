@@ -1,7 +1,9 @@
 package ru.practicum.shareit.user;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.Email;
 
@@ -9,12 +11,13 @@ import javax.validation.constraints.Email;
  * TODO Sprint add-controllers.
  */
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class User {
-    private long id;
-    private String name;
+    long id;
+    String name;
     @Email
-    private String email;
+    String email;
 
 
 }
