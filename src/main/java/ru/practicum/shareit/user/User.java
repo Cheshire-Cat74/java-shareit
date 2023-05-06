@@ -2,7 +2,6 @@ package ru.practicum.shareit.user;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,15 +20,6 @@ import javax.validation.constraints.NotNull;
 /**
  * TODO Sprint add-controllers.
  */
-//@Data
-//@FieldDefaults(level = AccessLevel.PRIVATE)
-//@AllArgsConstructor
-//public class User {
-//    long id;
-//    String name;
-//    @Email
-//    String email;
-//}
 @Getter
 @Setter
 @ToString
@@ -39,11 +29,14 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
+
     @Column(name = "name")
     String name;
+
     @Email
     @NotNull
     @Column(name = "email", unique = true, nullable = false)

@@ -15,12 +15,16 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ItemDto {
+
     long id;
+
     @NotNull
     @NotBlank
     String name;
+
     @NotNull
     String description;
+
     @NotNull
     Boolean available;
 

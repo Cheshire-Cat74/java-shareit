@@ -11,8 +11,11 @@ import javax.validation.constraints.Email;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserDto {
+
     long id;
+
     String name;
+
     @Email
     String email;
 }

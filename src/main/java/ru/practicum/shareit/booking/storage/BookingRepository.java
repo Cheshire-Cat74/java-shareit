@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
+
     @Query(" select b" +
             " from Booking b " +
             " join User u on (u.id = b.bookerId)" +
@@ -44,7 +45,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             " join Item i on (i.id = b.itemId) " +
             " where i.id = ?1"
     )
-    List<Booking> allBookingsForItem(Long itemId, Sort sort);
+    List<Booking> allBookingsForItem(Long itemId);
 
     @Query(" select b" +
             " from Booking b " +
@@ -82,6 +83,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             "join Item i on i.id = b.itemId " +
             "join User u on u.id = i.ownerId " +
             "where i.ownerId = ?1")
-    List<Booking> findAllByItemsOwnerId(Long ownerId, Sort sort);
+    List<Booking> findAllByItemsOwnerId(Long ownerId);
 }
 

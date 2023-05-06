@@ -2,9 +2,6 @@ package ru.practicum.shareit.item.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.storage.BookingRepository;
@@ -21,9 +18,10 @@ import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.storage.UserRepository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static ru.practicum.shareit.item.dto.ItemMapper.toGetItemDto;
@@ -81,18 +79,26 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public GetItemDto getItem(long itemId, long ownerId) throws NotFoundException {
+
         if (itemRepository.existsById(itemId)) {
             Item item = itemRepository.getReferenceById(itemId);
             List<Comment> comments = commentRepository.findAllByItemId(itemId);
             log.info("Получен предмет с id " + itemId);
-            List<Booking> bookings = bookingRepository.allBookingsForItem(itemId,
-                    Sort.by(Sort.Direction.ASC, "id", "start"));
+
+            List<Booking> bookings;
+
+            if (item.getOwnerId() == ownerId) {
+                bookings = new ArrayList<>(bookingRepository.allBookingsForItem(itemId));
+            } else {
+                bookings = Collections.emptyList();
+            }
+
             if (bookings.size() != 0 && item.getOwnerId() == ownerId) {
                 return toGetItemDto(
-                        item, bookings.get(0), bookings.get(bookings.size() - 1), comments
+                        item, bookings, comments
                 );
             } else {
-                return toGetItemDto(item, null, null, comments);
+                return toGetItemDto(item, null, comments);
             }
         } else {
             throw new NotFoundException();
@@ -104,13 +110,12 @@ public class ItemServiceImpl implements ItemService {
         List<GetItemDto> allItems =
                 itemRepository.findAll().stream()
                         .filter(l -> l.getOwnerId() == ownerId)
-                        .map(l -> ItemMapper.toGetItemDto(l, null, null, null))
+                        .map(l -> ItemMapper.toGetItemDto(l, null, null))
                         .sorted(Comparator.comparing(GetItemDto::getId))
                         .collect(Collectors.toList());
 
         List<Comment> allCommentsByItemsOwner = commentRepository.findAllByItemsOwnerId(ownerId);
-        List<Booking> allBookingsByItemsOwner = bookingRepository.findAllByItemsOwnerId(ownerId,
-                Sort.by(Sort.Direction.ASC, "start"));
+        List<Booking> allBookingsByItemsOwner = bookingRepository.findAllByItemsOwnerId(ownerId);
 
         for (GetItemDto item : allItems) {
 

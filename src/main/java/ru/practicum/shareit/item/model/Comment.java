@@ -19,15 +19,20 @@ import java.time.LocalDateTime;
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Comment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
+
     @NotBlank
     @NotNull
     String text;
+
     LocalDateTime created;
+
     @Column(name = "item_id")
     long itemId;
+
     @Column(name = "author_id")
     long authorId;
     String authorName;

@@ -16,15 +16,27 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class GetItemDto {
     long id;
+
     @NotNull
     @NotBlank
     String name;
+
     @NotNull
     String description;
     @NotNull
     Boolean available;
+
     Booking lastBooking;
+
     Booking nextBooking;
+
     List<Comment> comments;
+
+    public GetItemDto(long id, String name, String description, Boolean available) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.available = available;
+    }
 }
 
