@@ -16,7 +16,6 @@ import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.item.storage.ItemRepository;
 import ru.practicum.shareit.user.storage.UserRepository;
 
-import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
