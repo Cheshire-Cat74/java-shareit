@@ -18,7 +18,6 @@ public class ItemDto {
 
     long id;
 
-    @NotNull
     @NotBlank
     String name;
 
