@@ -1,4 +1,4 @@
-package ru.practicum.shareit.item.dto;
+package ru.practicum.shareit.item.model.dto;
 
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.model.enums.Status;
@@ -44,13 +44,27 @@ public class ItemMapper {
         return getItemDto;
     }
 
-    public static ItemDto toItemDto(Item item) {
-        return new ItemDto(item.getId(),
+    public static GetItemDto toGetItemDto(Item item, Booking last, Booking near,
+                                          List<Comment> comments) {
+        return new GetItemDto(item.getId(),
                 item.getName(),
                 item.getDescription(),
-                item.isAvailable()
-
+                item.isAvailable(),
+                last,
+                near,
+                comments
         );
+    }
+
+    public static ItemDto toItemDto(Item item) {
+        return ItemDto.builder()
+                .id(item.getId())
+                .available(item.isAvailable())
+                .description(item.getDescription())
+                .name(item.getName())
+                .requestId(item.getRequestId())
+                .build();
+
     }
 
     public static Item toItem(ItemDto dto, long owner) {
@@ -59,7 +73,7 @@ public class ItemMapper {
                 dto.getDescription(),
                 dto.getAvailable(),
                 owner,
-                0
+                dto.getRequestId()
         );
     }
 
