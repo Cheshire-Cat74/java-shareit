@@ -16,7 +16,6 @@ import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.dto.GetItemDto;
 import ru.practicum.shareit.item.model.dto.ItemDto;
-import ru.practicum.shareit.item.service.ItemService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;

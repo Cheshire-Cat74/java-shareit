@@ -1,4 +1,4 @@
-package ru.practicum.shareit.item.service;
+package ru.practicum.shareit.item;
 
 import ru.practicum.shareit.exception.BadRequestException;
 import ru.practicum.shareit.exception.NotFoundException;

@@ -22,7 +22,6 @@ import javax.validation.constraints.NotNull;
  */
 @Getter
 @Setter
-@ToString
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
