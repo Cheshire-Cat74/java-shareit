@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
  * TODO Sprint add-bookings.
  */
 @Getter
+@Setter
 @Builder
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)

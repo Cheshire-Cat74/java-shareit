@@ -8,8 +8,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.practicum.shareit.exception.BadRequestException;
 import ru.practicum.shareit.exception.ConflictException;
 import ru.practicum.shareit.exception.NotFoundException;
-import ru.practicum.shareit.user.User;
-import ru.practicum.shareit.user.UserService;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.dto.UserMapper;
 import ru.practicum.shareit.user.storage.UserRepository;
@@ -39,7 +37,6 @@ public class UserServiceTest {
                 .thenReturn(expectedUser);
         User actualUser = userService.add(expectedUser);
         assertEquals(expectedUser, actualUser);
-
     }
 
     @Test
@@ -50,7 +47,6 @@ public class UserServiceTest {
                 .thenThrow(ConflictException.class);
 
         assertThrows(ConflictException.class, () -> userService.add(expectedUser));
-
     }
 
     @Test

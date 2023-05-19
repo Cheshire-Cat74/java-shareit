@@ -62,7 +62,6 @@ public class BookingServiceTest {
         when(userRepository.findById(anyLong()))
                 .thenReturn(Optional.of(newUser));
         assertThrows(NullPointerException.class, () -> bookingService.addBooking(dto, bookerId));
-
     }
 
     @Test
@@ -83,7 +82,6 @@ public class BookingServiceTest {
         when(bookingRepository.findById(anyLong()))
                 .thenReturn(Optional.of(BookingMapper.toBooking(dto, bookerId, Status.WAITING)));
         assertThrows(NullPointerException.class, () -> bookingService.approveBooking(1, true, itemId));
-
     }
 
     @Test
@@ -101,7 +99,6 @@ public class BookingServiceTest {
         when(bookingRepository.findById(anyLong()))
                 .thenReturn(Optional.of(BookingMapper.toBooking(dto, bookerId, Status.WAITING)));
         assertThrows(NoSuchElementException.class, () -> bookingService.getBooking(1, bookerId));
-
     }
 
     @Test
@@ -119,7 +116,6 @@ public class BookingServiceTest {
         when(bookingRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());
         assertThrows(NotFoundException.class, () -> bookingService.getBooking(1, bookerId));
-
     }
 
     @Test
@@ -161,7 +157,6 @@ public class BookingServiceTest {
                 BookingState.WAITING, 0, 10));
         assertThrows(NoSuchElementException.class, () -> bookingService.getAllBookingsByBookerId(1,
                 BookingState.REJECTED, 0, 10));
-
     }
 
     @Test
@@ -181,8 +176,6 @@ public class BookingServiceTest {
 
         assertThrows(NotFoundException.class, () -> bookingService.getAllBookingsByBookerId(1,
                 BookingState.ALL, 0, 10));
-
-
     }
 
     @Test
@@ -270,8 +263,6 @@ public class BookingServiceTest {
                 .thenReturn(Optional.of(item));
         assertEquals(1,
                 BookingMapper.toFullBookingFromBooking(booking, Status.WAITING, itemRepository, userRepository).getId());
-
-
     }
 }
 

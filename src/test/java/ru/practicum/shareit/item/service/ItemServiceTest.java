@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -61,7 +62,6 @@ public class ItemServiceTest {
                 .thenReturn(ItemMapper.toItem(itemDto, itemId));
 
         assertEquals(itemDto.getName(), itemService.addItem(itemDto, 1).getName());
-
     }
 
     @Test
@@ -88,7 +88,6 @@ public class ItemServiceTest {
                 .thenReturn(item);
 
         assertEquals(itemDto, itemService.patchItem(itemDto, ownerId, itemId));
-
     }
 
     @Test
@@ -99,7 +98,6 @@ public class ItemServiceTest {
         Item item = ItemMapper.toItem(itemDto, ownerId);
 
         assertThrows(NullPointerException.class, () -> itemService.patchItem(itemDto, ownerId, itemId));
-
     }
 
     @Test
@@ -117,7 +115,30 @@ public class ItemServiceTest {
                 .thenReturn(item);
 
         assertEquals(itemDto, itemService.patchItem(newDto, ownerId, itemId));
+    }
 
+    @Test
+    void bookingsIsNotEmptyGetItem() throws NotFoundException {
+        long itemId = 1L;
+        long ownerId = 1L;
+        ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
+        Item item = ItemMapper.toItem(itemDto, ownerId);
+        GetItemDto getItemDto = ItemMapper.toGetItemDto(item, null, null, Collections.emptyList());
+
+        Booking booking = new Booking();
+        booking.setStart(LocalDateTime.now());
+        booking.setStatus(Status.WAITING);
+
+        when(itemRepository.existsById(anyLong()))
+                .thenReturn(true);
+        when(itemRepository.getReferenceById(anyLong()))
+                .thenReturn(item);
+        when(commentRepository.findAllByItemId(anyLong()))
+                .thenReturn(Collections.emptyList());
+        when(bookingRepository.allBookingsForItem(anyLong(), any()))
+                .thenReturn(List.of(booking));
+
+        assertNotEquals(getItemDto, itemService.getItem(itemId, ownerId));
     }
 
     @Test
@@ -137,9 +158,7 @@ public class ItemServiceTest {
         when(bookingRepository.allBookingsForItem(anyLong(), any()))
                 .thenReturn(Collections.emptyList());
 
-
         assertEquals(getItemDto, itemService.getItem(itemId, ownerId));
-
     }
 
     @Test
@@ -154,7 +173,6 @@ public class ItemServiceTest {
                 .thenReturn(false);
 
         assertThrows(NotFoundException.class, () -> itemService.getItem(itemId, ownerId));
-
     }
 
     @Test
@@ -173,9 +191,7 @@ public class ItemServiceTest {
         when(bookingRepository.findAllByItemsOwnerId(anyLong()))
                 .thenReturn(Collections.emptyList());
 
-
         assertEquals(List.of(getItemDto), itemService.getAllItemsByOwner(ownerId, 0, 10));
-
     }
 
     @Test
@@ -185,13 +201,10 @@ public class ItemServiceTest {
         ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
         Item item = ItemMapper.toItem(itemDto, ownerId);
 
-
         when(itemRepository.search(anyString(), any()))
                 .thenReturn(List.of(item));
 
-
         assertEquals(List.of(itemDto), itemService.searchItem("test", ownerId, 0, 10));
-
     }
 
     @Test
@@ -199,11 +212,8 @@ public class ItemServiceTest {
         long itemId = 1L;
         long ownerId = 1L;
         ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
-        Item item = ItemMapper.toItem(itemDto, ownerId);
-
 
         assertEquals(List.of(), itemService.searchItem("", ownerId, 0, 10));
-
     }
 
     @Test
@@ -229,7 +239,6 @@ public class ItemServiceTest {
                 .thenReturn(comment);
 
         assertEquals(comment.getText(), itemService.addComment(comment, itemId, 1).getText());
-
     }
 
     @Test
@@ -250,6 +259,5 @@ public class ItemServiceTest {
                 .thenReturn(List.of());
 
         assertThrows(BadRequestException.class, () -> itemService.addComment(comment, itemId, 1));
-
     }
 }

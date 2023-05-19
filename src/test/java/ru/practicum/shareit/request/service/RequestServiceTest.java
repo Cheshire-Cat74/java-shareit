@@ -50,7 +50,6 @@ public class RequestServiceTest {
         when(itemRequestRepository.save(any()))
                 .thenReturn(request);
         assertEquals(request, requestService.addRequest(dto, userId));
-
     }
 
     @Test
@@ -73,7 +72,6 @@ public class RequestServiceTest {
                 .thenReturn(List.of(item));
         assertEquals(List.of(getItemRequestDto).get(0).getDescription(),
                 requestService.getRequests(userId).get(0).getDescription());
-
     }
 
     @Test
@@ -97,7 +95,6 @@ public class RequestServiceTest {
                 .thenReturn(List.of(item));
         assertEquals(getItemRequestDto.getDescription(),
                 requestService.getRequestsPageable(userId, 0, 10).get(0).getDescription());
-
     }
 
     @Test
@@ -122,6 +119,5 @@ public class RequestServiceTest {
                 .thenReturn(List.of(item));
         assertEquals(getItemRequestDto.getDescription(),
                 requestService.getRequestById(userId, 1).getDescription());
-
     }
 }

@@ -35,16 +35,13 @@ import static org.mockito.Mockito.when;
 @AutoConfigureTestDatabase()
 class ShareItTests {
 
-
 	UserService userService;
 	@MockBean
 	ItemService itemService;
-
 	@Mock
 	UserRepository userRepository;
 	@MockBean
 	ItemRepository itemRepository;
-
 	@MockBean
 	BookingRepository bookingRepository;
 	@MockBean
@@ -76,8 +73,8 @@ class ShareItTests {
 		when(userRepository.findById(anyLong()))
 				.thenReturn(Optional.of(newUser));
 		userService.update(newUser, 1);
-		Assertions.assertEquals(userService.getUserById(1), newUser);
 
+		Assertions.assertEquals(userService.getUserById(1), newUser);
 	}
 
 	@Test
@@ -85,9 +82,8 @@ class ShareItTests {
 		when(userRepository.save(any()))
 				.thenReturn(user);
 		userService.add(user);
-
 		userService.delete(1);
-		Assertions.assertThrows(NotFoundException.class, () -> userService.getUserById(1));
 
+		Assertions.assertThrows(NotFoundException.class, () -> userService.getUserById(1));
 	}
 }

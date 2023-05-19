@@ -76,5 +76,4 @@ public class ItemMapper {
                 dto.getRequestId()
         );
     }
-
 }

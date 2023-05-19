@@ -17,7 +17,6 @@ public class ExceptionHandlerTest {
         ResponseEntity<ErrorResponse> entity = ResponseEntity.status(409).body(new ErrorResponse(error));
         exceptionsHandler.conflictException(new ConflictException());
         assertEquals(1, 1);
-
     }
 
     @Test
@@ -28,6 +27,5 @@ public class ExceptionHandlerTest {
         ResponseEntity<ErrorResponse> entity = ResponseEntity.status(409).body(new ErrorResponse(error));
         exceptionsHandler.badRequestException(new BadRequestException());
         assertEquals(1, 1);
-
     }
 }
