@@ -16,7 +16,6 @@ import ru.practicum.shareit.request.dto.ItemRequestDto;
 import ru.practicum.shareit.request.dto.ItemRequestMapper;
 import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.request.storage.ItemRequestRepository;
-import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.storage.UserRepository;
 
 import java.util.List;
@@ -39,16 +38,25 @@ public class RequestServiceTest {
     ItemRequestServiceImpl requestService;
 
     @Test
+    public void testSetDescription() {
+        ItemRequest itemRequest = new ItemRequest();
+        String description = "test description";
+        itemRequest.setDescription(description);
+        assertEquals(description, itemRequest.getDescription());
+    }
+
+    @Test
     void addRequest() {
         long userId = 1L;
-        User newUser = new User(1, "test", "test@test.com");
         ItemRequestDto dto = new ItemRequestDto();
         dto.setDescription("test");
         ItemRequest request = ItemRequestMapper.toItemRequest(dto, userId);
+
         when(userRepository.existsById(anyLong()))
                 .thenReturn(true);
         when(itemRequestRepository.save(any()))
                 .thenReturn(request);
+
         assertEquals(request, requestService.addRequest(dto, userId));
     }
 
@@ -59,17 +67,18 @@ public class RequestServiceTest {
         long ownerId = 1L;
         ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
         Item item = ItemMapper.toItem(itemDto, ownerId);
-        User newUser = new User(1, "test", "test@test.com");
         ItemRequestDto dto = new ItemRequestDto();
         dto.setDescription("test");
         ItemRequest request = ItemRequestMapper.toItemRequest(dto, userId);
         GetItemRequestDto getItemRequestDto = ItemRequestMapper.toGetItemRequestDto(request);
+
         when(itemRequestRepository.findAllByRequesterId(anyLong(), any()))
                 .thenReturn(List.of(request));
         when(userRepository.existsById(anyLong()))
                 .thenReturn(true);
         when(itemRepository.findAllByRequesterId(anyLong()))
                 .thenReturn(List.of(item));
+
         assertEquals(List.of(getItemRequestDto).get(0).getDescription(),
                 requestService.getRequests(userId).get(0).getDescription());
     }
@@ -81,18 +90,19 @@ public class RequestServiceTest {
         long ownerId = 1L;
         ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
         Item item = ItemMapper.toItem(itemDto, ownerId);
-        User newUser = new User(1, "test", "test@test.com");
         ItemRequestDto dto = new ItemRequestDto();
         dto.setDescription("test");
         ItemRequest request = ItemRequestMapper.toItemRequest(dto, userId);
         GetItemRequestDto getItemRequestDto = ItemRequestMapper.toGetItemRequestDto(request);
         final Page<ItemRequest> page = new PageImpl<>(List.of(request));
+
         when(itemRequestRepository.findAllByRequesterIdIsNot(anyLong(), any()))
                 .thenReturn(page);
         when(userRepository.existsById(anyLong()))
                 .thenReturn(true);
         when(itemRepository.findAllByRequesterIdIsNot(anyLong()))
                 .thenReturn(List.of(item));
+
         assertEquals(getItemRequestDto.getDescription(),
                 requestService.getRequestsPageable(userId, 0, 10).get(0).getDescription());
     }
@@ -104,11 +114,11 @@ public class RequestServiceTest {
         long ownerId = 1L;
         ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
         Item item = ItemMapper.toItem(itemDto, ownerId);
-        User newUser = new User(1, "test", "test@test.com");
         ItemRequestDto dto = new ItemRequestDto();
         dto.setDescription("test");
         ItemRequest request = ItemRequestMapper.toItemRequest(dto, userId);
         GetItemRequestDto getItemRequestDto = ItemRequestMapper.toGetItemRequestDto(request);
+
         when(itemRequestRepository.existsById(anyLong()))
                 .thenReturn(true);
         when(userRepository.existsById(anyLong()))
@@ -117,6 +127,7 @@ public class RequestServiceTest {
                 .thenReturn(Optional.of(request));
         when(itemRepository.findAllByRequestId(anyLong()))
                 .thenReturn(List.of(item));
+
         assertEquals(getItemRequestDto.getDescription(),
                 requestService.getRequestById(userId, 1).getDescription());
     }

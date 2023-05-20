@@ -8,9 +8,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.practicum.shareit.exception.NotFoundException;
-import ru.practicum.shareit.user.User;
-import ru.practicum.shareit.user.UserController;
-import ru.practicum.shareit.user.UserService;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.dto.UserMapper;
 
@@ -38,6 +35,7 @@ public class UserControllerTest {
     @Test
     void saveNewUser() throws Exception {
         final UserDto userDto = new UserDto(0, "test", "test@test.com");
+
         when(userService.add(any()))
                 .thenReturn(UserMapper.toUser(userDto));
 
@@ -52,6 +50,7 @@ public class UserControllerTest {
     @Test
     void saveNewUserWrongEmail() throws Exception {
         final UserDto userDto = new UserDto(0, "test", "testtestcom");
+
         when(userService.add(any()))
                 .thenReturn(UserMapper.toUser(userDto));
 
@@ -66,6 +65,7 @@ public class UserControllerTest {
     @Test
     void saveNewUserNoName() throws Exception {
         final UserDto userDto = new UserDto(0, "", "testtestcom");
+
         when(userService.add(any()))
                 .thenReturn(UserMapper.toUser(userDto));
 
@@ -80,6 +80,7 @@ public class UserControllerTest {
     @Test
     void getUser() throws Exception {
         final UserDto userDto = new UserDto(1, "test", "test@test.com");
+
         when(userService.getUserById(anyLong()))
                 .thenReturn(UserMapper.toUser(userDto));
 
@@ -94,6 +95,7 @@ public class UserControllerTest {
     @Test
     void getUserNotExist() throws Exception {
         final UserDto userDto = new UserDto(0, "test", "test@test.com");
+
         when(userService.getUserById(1))
                 .thenThrow(new NotFoundException());
 
@@ -108,6 +110,7 @@ public class UserControllerTest {
     @Test
     void getAllUsers() throws Exception {
         final User userDto = new User(1, "test", "test@test.com");
+
         when(userService.getAllUsers())
                 .thenReturn(List.of(userDto));
 
@@ -122,6 +125,7 @@ public class UserControllerTest {
     @Test
     void updateUser() throws Exception {
         final User userDto = new User(1, "test", "test@test.com");
+
         when(userService.update(any(), anyLong()))
                 .thenReturn(userDto);
 
@@ -133,4 +137,3 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
     }
 }
-

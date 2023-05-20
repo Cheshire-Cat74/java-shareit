@@ -7,7 +7,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.practicum.shareit.item.model.dto.ItemDto;
 import ru.practicum.shareit.request.dto.ItemRequestDto;
 import ru.practicum.shareit.request.dto.ItemRequestMapper;
 import ru.practicum.shareit.request.model.ItemRequest;
@@ -37,7 +36,6 @@ public class RequestControllerTest {
     void addRequest() throws Exception {
         final ItemRequestDto requestDto = new ItemRequestDto();
         requestDto.setDescription("test");
-        ItemDto itemDto = new ItemDto(1, "test", "testtest", true, 0);
 
         when(requestService.addRequest(any(), anyLong()))
                 .thenReturn(ItemRequestMapper.toItemRequest(requestDto, 1));
@@ -55,8 +53,8 @@ public class RequestControllerTest {
     void getRequests() throws Exception {
         final ItemRequestDto requestDto = new ItemRequestDto();
         requestDto.setDescription("test");
-        ItemDto itemDto = new ItemDto(1, "test", "testtest", true, 0);
         ItemRequest itemRequest = ItemRequestMapper.toItemRequest(requestDto, 1);
+
         when(requestService.getRequests(anyLong()))
                 .thenReturn(List.of(ItemRequestMapper.toGetItemRequestDto(itemRequest)));
 
@@ -73,8 +71,8 @@ public class RequestControllerTest {
     void getRequestsPageable() throws Exception {
         final ItemRequestDto requestDto = new ItemRequestDto();
         requestDto.setDescription("test");
-        ItemDto itemDto = new ItemDto(1, "test", "testtest", true, 0);
         ItemRequest itemRequest = ItemRequestMapper.toItemRequest(requestDto, 1);
+
         when(requestService.getRequestsPageable(anyLong(), anyInt(), anyInt()))
                 .thenReturn(List.of(ItemRequestMapper.toGetItemRequestDto(itemRequest)));
 
@@ -91,8 +89,8 @@ public class RequestControllerTest {
     void getRequestById() throws Exception {
         final ItemRequestDto requestDto = new ItemRequestDto();
         requestDto.setDescription("test");
-        ItemDto itemDto = new ItemDto(1, "test", "testtest", true, 0);
         ItemRequest itemRequest = ItemRequestMapper.toItemRequest(requestDto, 1);
+
         when(requestService.getRequestById(anyLong(), anyLong()))
                 .thenReturn(ItemRequestMapper.toGetItemRequestDto(itemRequest));
 
@@ -105,4 +103,3 @@ public class RequestControllerTest {
                 .andExpect(status().isOk());
     }
 }
-
