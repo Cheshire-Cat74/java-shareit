@@ -36,7 +36,6 @@ public class RequestControllerTest {
     void addRequest() throws Exception {
         final ItemRequestDto requestDto = new ItemRequestDto();
         requestDto.setDescription("test");
-
         when(requestService.addRequest(any(), anyLong()))
                 .thenReturn(ItemRequestMapper.toItemRequest(requestDto, 1));
 
@@ -54,7 +53,6 @@ public class RequestControllerTest {
         final ItemRequestDto requestDto = new ItemRequestDto();
         requestDto.setDescription("test");
         ItemRequest itemRequest = ItemRequestMapper.toItemRequest(requestDto, 1);
-
         when(requestService.getRequests(anyLong()))
                 .thenReturn(List.of(ItemRequestMapper.toGetItemRequestDto(itemRequest)));
 
@@ -72,7 +70,6 @@ public class RequestControllerTest {
         final ItemRequestDto requestDto = new ItemRequestDto();
         requestDto.setDescription("test");
         ItemRequest itemRequest = ItemRequestMapper.toItemRequest(requestDto, 1);
-
         when(requestService.getRequestsPageable(anyLong(), anyInt(), anyInt()))
                 .thenReturn(List.of(ItemRequestMapper.toGetItemRequestDto(itemRequest)));
 
@@ -90,7 +87,6 @@ public class RequestControllerTest {
         final ItemRequestDto requestDto = new ItemRequestDto();
         requestDto.setDescription("test");
         ItemRequest itemRequest = ItemRequestMapper.toItemRequest(requestDto, 1);
-
         when(requestService.getRequestById(anyLong(), anyLong()))
                 .thenReturn(ItemRequestMapper.toGetItemRequestDto(itemRequest));
 

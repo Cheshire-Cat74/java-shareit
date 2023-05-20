@@ -53,7 +53,6 @@ public class UserServiceTest {
     void addNewUser() throws BadRequestException, NotFoundException {
         long userId = 0L;
         User expectedUser = new User(userId, "Test", "test@test.com");
-
         when(userRepository.save(any()))
                 .thenReturn(expectedUser);
         User actualUser = userService.add(expectedUser);
@@ -65,7 +64,6 @@ public class UserServiceTest {
     void addNewUserDuplicateEmail() throws NotFoundException {
         long userId = 0L;
         User expectedUser = new User(userId, "Test", "test@test.com");
-
         when(userRepository.save(any()))
                 .thenThrow(ConflictException.class);
 
@@ -77,7 +75,6 @@ public class UserServiceTest {
         long userId = 0L;
         UserDto dto = new UserDto(userId, "Test", "test@test.com");
         User expectedUser = UserMapper.toUser(dto);
-
         when(userRepository.findById(userId))
                 .thenReturn(Optional.of(expectedUser));
         User actualUser = userService.getUserById(userId);
@@ -99,7 +96,6 @@ public class UserServiceTest {
         long userId = 0L;
         UserDto dto = new UserDto(userId, null, "test@test.com");
         User expectedUser = UserMapper.toUser(dto);
-
         when(userRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());
 
@@ -111,7 +107,6 @@ public class UserServiceTest {
         long userId = 0L;
         UserDto dto = new UserDto(userId, "test", null);
         User expectedUser = UserMapper.toUser(dto);
-
         when(userRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());
 
@@ -122,7 +117,6 @@ public class UserServiceTest {
     void getAllUsers() {
         long userId = 0L;
         User expectedUser = new User(userId, "Test", "test@test.com");
-
         when(userRepository.findAll())
                 .thenReturn(List.of(expectedUser));
         List<User> actualUser = userService.getAllUsers();
@@ -135,7 +129,6 @@ public class UserServiceTest {
         long userId = 1L;
         User expectedUser = new User(userId, "Test", "test@test.com");
         User noEmailUser = new User(userId, "Test", null);
-
         when(userRepository.findById(userId))
                 .thenReturn(Optional.of(expectedUser));
         when(userRepository.save(any()))
@@ -150,7 +143,6 @@ public class UserServiceTest {
         long userId = 1L;
         User expectedUser = new User(userId, "Test", "test@test.com");
         User noEmailUser = new User(userId, null, "test@test.com");
-
         when(userRepository.findById(userId))
                 .thenReturn(Optional.of(expectedUser));
         when(userRepository.save(any()))

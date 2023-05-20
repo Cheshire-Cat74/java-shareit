@@ -55,7 +55,6 @@ public class ItemServiceTest {
     void addItem() throws NotFoundException {
         long itemId = 1L;
         ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
-        
         when(userRepository.existsById(anyLong()))
                 .thenReturn(true);
         when(itemRepository.save(any()))
@@ -68,7 +67,6 @@ public class ItemServiceTest {
     void addItemNoUser() throws NotFoundException, BadRequestException {
         long itemId = 1L;
         ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
-
         when(userRepository.existsById(anyLong()))
                 .thenReturn(false);
 
@@ -81,7 +79,6 @@ public class ItemServiceTest {
         long ownerId = 1L;
         ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
         Item item = ItemMapper.toItem(itemDto, ownerId);
-
         when(itemRepository.getReferenceById(itemId))
                 .thenReturn(item);
         when(itemRepository.findById(itemId))
@@ -108,7 +105,6 @@ public class ItemServiceTest {
         ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
         Item item = ItemMapper.toItem(itemDto, ownerId);
         ItemDto newDto = new ItemDto(itemId, null, null, null, 0);
-
         when(itemRepository.getReferenceById(itemId))
                 .thenReturn(item);
         when(itemRepository.findById(itemId))
@@ -130,7 +126,6 @@ public class ItemServiceTest {
         Booking booking = new Booking();
         booking.setStart(LocalDateTime.now());
         booking.setStatus(Status.WAITING);
-
         when(itemRepository.existsById(anyLong()))
                 .thenReturn(true);
         when(itemRepository.getReferenceById(anyLong()))
@@ -150,7 +145,6 @@ public class ItemServiceTest {
         ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
         Item item = ItemMapper.toItem(itemDto, ownerId);
         GetItemDto getItemDto = ItemMapper.toGetItemDto(item, null, null, Collections.emptyList());
-
         when(itemRepository.existsById(anyLong()))
                 .thenReturn(true);
         when(itemRepository.getReferenceById(anyLong()))
@@ -167,7 +161,6 @@ public class ItemServiceTest {
     void getItemNotFound() throws NotFoundException {
         long itemId = 1L;
         long ownerId = 1L;
-
         when(itemRepository.existsById(anyLong()))
                 .thenReturn(false);
 
@@ -182,7 +175,6 @@ public class ItemServiceTest {
         Item item = ItemMapper.toItem(itemDto, ownerId);
         GetItemDto getItemDto = ItemMapper.toGetItemDto(item, null, null, Collections.emptyList());
         final Page<Item> page = new PageImpl<>(List.of(item));
-
         when(itemRepository.findAll((Pageable) any()))
                 .thenReturn(page);
         when(commentRepository.findAllByItemsOwnerId(anyLong()))
@@ -199,7 +191,6 @@ public class ItemServiceTest {
         long ownerId = 1L;
         ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
         Item item = ItemMapper.toItem(itemDto, ownerId);
-
         when(itemRepository.search(anyString(), any()))
                 .thenReturn(List.of(item));
 
@@ -225,7 +216,6 @@ public class ItemServiceTest {
         comment.setAuthorId(1);
         Booking booking = new Booking(1, LocalDateTime.MIN, LocalDateTime.MIN.plusHours(1), itemId, 1,
                 Status.APPROVED);
-
         when(bookingRepository.bookingsForItemAndBookerPast(anyLong(), anyLong(), any()))
                 .thenReturn(List.of(booking));
         when(userRepository.findById(anyLong()))
@@ -246,7 +236,6 @@ public class ItemServiceTest {
         comment.setText("test");
         comment.setAuthorName("test");
         comment.setAuthorId(1);
-
         when(bookingRepository.bookingsForItemAndBookerPast(anyLong(), anyLong(), any()))
                 .thenReturn(List.of());
 

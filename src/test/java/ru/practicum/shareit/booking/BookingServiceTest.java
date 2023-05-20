@@ -56,7 +56,6 @@ public class BookingServiceTest {
         User newUser = new User(1, "test", "test@test.com");
         ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
         Item item = ItemMapper.toItem(itemDto, ownerId);
-
         when(itemRepository.findById(anyLong()))
                 .thenReturn(Optional.of(item));
         when(userRepository.findById(anyLong()))
@@ -67,7 +66,6 @@ public class BookingServiceTest {
 
     @Test
     void testAddBookingItemUnavailable() {
-        // arrange
         BookingDto dto = new BookingDto();
         dto.setItemId(1L);
         dto.setStart(LocalDateTime.now());
@@ -170,7 +168,6 @@ public class BookingServiceTest {
         BookingDto dto = new BookingDto(1, itemId, LocalDateTime.now(), LocalDateTime.now().plusHours(1));
         ItemDto itemDto = new ItemDto(itemId, "TestItem", "DescriptionTest", true, 0);
         Item item = ItemMapper.toItem(itemDto, ownerId);
-
         when(itemRepository.findById(anyLong()))
                 .thenReturn(Optional.of(item));
         when(bookingRepository.findById(anyLong()))
@@ -185,7 +182,6 @@ public class BookingServiceTest {
         long bookerId = 1L;
 
         BookingDto dto = new BookingDto(1, itemId, LocalDateTime.now(), LocalDateTime.now().plusHours(1));
-
         when(bookingRepository.findById(anyLong()))
                 .thenReturn(Optional.of(BookingMapper.toBooking(dto, bookerId, Status.WAITING)));
 
@@ -204,7 +200,6 @@ public class BookingServiceTest {
         item.setOwnerId(5L);
 
         Optional<Booking> optionalBooking = Optional.of(booking);
-
         when(bookingRepository.findById(bookingId)).thenReturn(optionalBooking);
         when(itemRepository.findById(booking.getItemId())).thenReturn(Optional.of(item));
 
@@ -231,7 +226,6 @@ public class BookingServiceTest {
 
         BookingDto dto = new BookingDto(1, itemId, LocalDateTime.now(), LocalDateTime.now().plusHours(1));
         User newUser = new User(1, "test", "test@test.com");
-
         when(userRepository.findById(anyLong()))
                 .thenReturn(Optional.of(newUser));
         when(bookingRepository.findAllByBookerId(anyLong(), any()))
@@ -264,7 +258,6 @@ public class BookingServiceTest {
         when(userRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());
 
-
         assertThrows(NotFoundException.class, () -> bookingService.getAllBookingsByBookerId(1,
                 BookingState.ALL, 0, 10));
     }
@@ -276,7 +269,6 @@ public class BookingServiceTest {
 
         BookingDto dto = new BookingDto(1, itemId, LocalDateTime.now(), LocalDateTime.now().plusHours(1));
         User newUser = new User(1, "test", "test@test.com");
-
         when(userRepository.findById(anyLong()))
                 .thenReturn(Optional.of(newUser));
 
@@ -306,7 +298,6 @@ public class BookingServiceTest {
 
     @Test
     void getAllBookingsByItemsNotFoundUser() throws NotFoundException {
-
         when(userRepository.findById(anyLong()))
                 .thenReturn(Optional.empty());
 
@@ -329,7 +320,6 @@ public class BookingServiceTest {
         ItemDto itemDto = new ItemDto(1, "TestItem", "DescriptionTest", true, 0);
         Item item = ItemMapper.toItem(itemDto, 1);
         Booking booking = new Booking(1, LocalDateTime.MIN, LocalDateTime.now(), 1, 1, Status.WAITING);
-
         when(userRepository.findById(anyLong()))
                 .thenReturn(Optional.of(newUser));
         when(itemRepository.findById(anyLong()))

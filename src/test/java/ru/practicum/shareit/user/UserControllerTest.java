@@ -35,7 +35,6 @@ public class UserControllerTest {
     @Test
     void saveNewUser() throws Exception {
         final UserDto userDto = new UserDto(0, "test", "test@test.com");
-
         when(userService.add(any()))
                 .thenReturn(UserMapper.toUser(userDto));
 
@@ -50,7 +49,6 @@ public class UserControllerTest {
     @Test
     void saveNewUserWrongEmail() throws Exception {
         final UserDto userDto = new UserDto(0, "test", "testtestcom");
-
         when(userService.add(any()))
                 .thenReturn(UserMapper.toUser(userDto));
 
@@ -65,7 +63,6 @@ public class UserControllerTest {
     @Test
     void saveNewUserNoName() throws Exception {
         final UserDto userDto = new UserDto(0, "", "testtestcom");
-
         when(userService.add(any()))
                 .thenReturn(UserMapper.toUser(userDto));
 
@@ -80,7 +77,6 @@ public class UserControllerTest {
     @Test
     void getUser() throws Exception {
         final UserDto userDto = new UserDto(1, "test", "test@test.com");
-
         when(userService.getUserById(anyLong()))
                 .thenReturn(UserMapper.toUser(userDto));
 
@@ -95,7 +91,6 @@ public class UserControllerTest {
     @Test
     void getUserNotExist() throws Exception {
         final UserDto userDto = new UserDto(0, "test", "test@test.com");
-
         when(userService.getUserById(1))
                 .thenThrow(new NotFoundException());
 
@@ -110,7 +105,6 @@ public class UserControllerTest {
     @Test
     void getAllUsers() throws Exception {
         final User userDto = new User(1, "test", "test@test.com");
-
         when(userService.getAllUsers())
                 .thenReturn(List.of(userDto));
 
@@ -125,7 +119,6 @@ public class UserControllerTest {
     @Test
     void updateUser() throws Exception {
         final User userDto = new User(1, "test", "test@test.com");
-
         when(userService.update(any(), anyLong()))
                 .thenReturn(userDto);
 

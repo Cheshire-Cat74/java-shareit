@@ -48,7 +48,6 @@ public class BookingControllerTest {
                 .start(LocalDateTime.now())
                 .end(LocalDateTime.now().plusHours(1)).build();
         ItemDto itemDto = new ItemDto(1, "test", "testtest", true, 0);
-
         when(bookingService.addBooking(any(), anyLong()))
                 .thenReturn(FullBookingDto.builder()
                         .id(1)
@@ -76,7 +75,6 @@ public class BookingControllerTest {
         bookingDto.setStart(LocalDateTime.now());
         bookingDto.setEnd(LocalDateTime.now().plusHours(1));
         ItemDto itemDto = new ItemDto(1, "test", "testtest", true, 0);
-
         when(bookingService.approveBooking(anyLong(), anyBoolean(), anyLong()))
                 .thenReturn(FullBookingDto.builder()
                         .id(1)
@@ -105,7 +103,6 @@ public class BookingControllerTest {
         bookingDto.setStart(LocalDateTime.now());
         bookingDto.setEnd(LocalDateTime.now().plusHours(1));
         ItemDto itemDto = new ItemDto(1, "test", "testtest", true, 0);
-
         when(bookingService.getBooking(anyLong(), anyLong()))
                 .thenReturn(FullBookingDto.builder()
                         .id(1)
@@ -133,7 +130,6 @@ public class BookingControllerTest {
         bookingDto.setStart(LocalDateTime.now());
         bookingDto.setEnd(LocalDateTime.now().plusHours(1));
         ItemDto itemDto = new ItemDto(1, "test", "testtest", true, 0);
-
         when(bookingService.getAllBookingsByBookerId(anyLong(), any(), anyInt(), anyInt()))
                 .thenReturn(List.of(FullBookingDto.builder()
                         .id(1)
@@ -161,7 +157,6 @@ public class BookingControllerTest {
         bookingDto.setStart(LocalDateTime.now());
         bookingDto.setEnd(LocalDateTime.now().plusHours(1));
         ItemDto itemDto = new ItemDto(1, "test", "testtest", true, 0);
-
         when(bookingService.getAllBookingByItemsByOwnerId(anyLong(), any(), anyInt(), anyInt()))
                 .thenReturn(List.of(FullBookingDto.builder()
                         .id(1)
@@ -188,8 +183,6 @@ public class BookingControllerTest {
         bookingDto.setItemId(1);
         bookingDto.setStart(LocalDateTime.now());
         bookingDto.setEnd(LocalDateTime.now().plusHours(1));
-        ItemDto itemDto = new ItemDto(1, "test", "testtest", true, 0);
-
         when(bookingService.getAllBookingByItemsByOwnerId(anyLong(), any(), anyInt(), anyInt()))
                 .thenThrow(MethodArgumentTypeMismatchException.class);
 

@@ -51,7 +51,6 @@ public class RequestServiceTest {
         ItemRequestDto dto = new ItemRequestDto();
         dto.setDescription("test");
         ItemRequest request = ItemRequestMapper.toItemRequest(dto, userId);
-
         when(userRepository.existsById(anyLong()))
                 .thenReturn(true);
         when(itemRequestRepository.save(any()))
@@ -71,7 +70,6 @@ public class RequestServiceTest {
         dto.setDescription("test");
         ItemRequest request = ItemRequestMapper.toItemRequest(dto, userId);
         GetItemRequestDto getItemRequestDto = ItemRequestMapper.toGetItemRequestDto(request);
-
         when(itemRequestRepository.findAllByRequesterId(anyLong(), any()))
                 .thenReturn(List.of(request));
         when(userRepository.existsById(anyLong()))
@@ -95,7 +93,6 @@ public class RequestServiceTest {
         ItemRequest request = ItemRequestMapper.toItemRequest(dto, userId);
         GetItemRequestDto getItemRequestDto = ItemRequestMapper.toGetItemRequestDto(request);
         final Page<ItemRequest> page = new PageImpl<>(List.of(request));
-
         when(itemRequestRepository.findAllByRequesterIdIsNot(anyLong(), any()))
                 .thenReturn(page);
         when(userRepository.existsById(anyLong()))
@@ -118,7 +115,6 @@ public class RequestServiceTest {
         dto.setDescription("test");
         ItemRequest request = ItemRequestMapper.toItemRequest(dto, userId);
         GetItemRequestDto getItemRequestDto = ItemRequestMapper.toGetItemRequestDto(request);
-
         when(itemRequestRepository.existsById(anyLong()))
                 .thenReturn(true);
         when(userRepository.existsById(anyLong()))
