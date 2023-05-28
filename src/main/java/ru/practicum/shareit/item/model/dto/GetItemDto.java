@@ -1,4 +1,4 @@
-package ru.practicum.shareit.item.dto;
+package ru.practicum.shareit.item.model.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -38,5 +38,7 @@ public class GetItemDto {
         this.description = description;
         this.available = available;
     }
+
+
 }
 
