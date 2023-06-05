@@ -28,7 +28,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Validated
 public class BookingController {
     private final BookingClient bookingClient;
-    private final String header ="X-Sharer-User-Id";
+    private final String header = "X-Sharer-User-Id";
 
     @PostMapping
     public ResponseEntity<Object> bookItem(@RequestHeader(header) long userId,

@@ -22,7 +22,7 @@ import java.util.Collection;
 public class RequestController {
 
     private final RequestService requestService;
-    private final String header ="X-Sharer-User-Id";
+    private final String header = "X-Sharer-User-Id";
 
     @PostMapping()
     public ItemRequestDto create(@RequestHeader(header) Long userId,
@@ -51,6 +51,5 @@ public class RequestController {
         log.debug("ReadAll");
         return requestService.readAll(userId, from, size);
     }
-
 }
 

@@ -25,7 +25,7 @@ import javax.validation.constraints.PositiveOrZero;
 @Validated
 public class RequestController {
     private final RequestClient requestClient;
-    private final String header ="X-Sharer-User-Id";
+    private final String header = "X-Sharer-User-Id";
 
     @PostMapping
     public ResponseEntity<Object> create(@RequestHeader(header) long userId,

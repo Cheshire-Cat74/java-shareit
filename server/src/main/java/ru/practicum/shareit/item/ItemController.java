@@ -1,6 +1,5 @@
 package ru.practicum.shareit.item;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -14,16 +13,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.item.dto.CommentDto;
-import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.service.ItemService;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * TODO Sprint add-controllers.
@@ -36,7 +30,7 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
-    private final String header ="X-Sharer-User-Id";
+    private final String header = "X-Sharer-User-Id";
 
     @PostMapping
     public ItemDto create(@RequestHeader(header) Long userId,

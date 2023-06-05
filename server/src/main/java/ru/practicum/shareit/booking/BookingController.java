@@ -28,7 +28,7 @@ import java.util.Collection;
 public class BookingController {
 
     private final BookingService bookingService;
-    private final String header ="X-Sharer-User-Id";
+    private final String header = "X-Sharer-User-Id";
 
     @PostMapping
     public BookingDto create(@RequestHeader(header) Long userId,

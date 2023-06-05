@@ -4,13 +4,10 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import ru.practicum.shareit.item.dto.ItemDto;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
