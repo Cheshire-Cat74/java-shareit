@@ -1,6 +1,8 @@
 package ru.practicum.shareit.booking.service;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,11 +29,12 @@ import static ru.practicum.shareit.exception.Constant.NOT_FOUND_BOOKING;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookingServiceImpl implements BookingService {
 
-    private final BookingRepository bookingRepository;
-    private final ItemService itemService;
-    private final UserService userService;
+    final BookingRepository bookingRepository;
+    final ItemService itemService;
+    final UserService userService;
 
     @Override
     public BookingDto create(long userId, BookingDto bookingDto) {

@@ -31,6 +31,7 @@ public class ItemController {
 
     private final ItemService itemService;
     private final String header = "X-Sharer-User-Id";
+    private final String way = "/{itemId}";
 
     @PostMapping
     public ItemDto create(@RequestHeader(header) Long userId,
@@ -39,7 +40,7 @@ public class ItemController {
         return itemService.create(userId, itemDto);
     }
 
-    @GetMapping("/{itemId}")
+    @GetMapping(way)
     public ItemDto read(@RequestHeader(header) Long userId,
                         @PathVariable long itemId) {
         log.debug("Read({})", itemId);
@@ -54,7 +55,7 @@ public class ItemController {
         return itemService.readAll(userId, from, size);
     }
 
-    @PatchMapping("/{itemId}")
+    @PatchMapping(way)
     public ItemDto update(@RequestHeader(header) Long userId,
                           @PathVariable long itemId,
                           @RequestBody ItemDto itemDto) {
@@ -62,7 +63,7 @@ public class ItemController {
         return itemService.update(userId, itemId, itemDto);
     }
 
-    @DeleteMapping("/{itemId}")
+    @DeleteMapping(way)
     public void delete(@RequestHeader(header) Long userId,
                        @PathVariable long itemId) {
         log.debug("Delete({})", itemId);
@@ -78,7 +79,7 @@ public class ItemController {
         return itemService.search(userId, text, from, size);
     }
 
-    @PostMapping("/{itemId}/comment")
+    @PostMapping(way +"/comment")
     public CommentDto createComment(@RequestHeader(header) Long userId,
                                     @PathVariable long itemId,
                                     @RequestBody CommentDto commentDto) {

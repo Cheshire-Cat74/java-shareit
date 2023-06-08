@@ -1,6 +1,8 @@
 package ru.practicum.shareit.request.service;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,11 +29,12 @@ import static ru.practicum.shareit.exception.Constant.NOT_FOUND_ITEM_REQUEST;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class RequestServiceImpl implements RequestService {
 
-    private final UserService userService;
-    private final ItemService itemService;
-    private final RequestRepository requestRepository;
+    final UserService userService;
+    final ItemService itemService;
+    final RequestRepository requestRepository;
 
     @Override
     public ItemRequestDto create(Long userId, ItemRequestDto itemRequestDto) {

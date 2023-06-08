@@ -29,6 +29,7 @@ public class BookingController {
 
     private final BookingService bookingService;
     private final String header = "X-Sharer-User-Id";
+    private final String way = "/{bookingId}";
 
     @PostMapping
     public BookingDto create(@RequestHeader(header) Long userId,
@@ -37,7 +38,7 @@ public class BookingController {
         return bookingService.create(userId, bookingDto);
     }
 
-    @GetMapping("/{bookingId}")
+    @GetMapping(way)
     public BookingDto read(@RequestHeader(header) Long userId,
                            @PathVariable long bookingId) {
         log.debug("Read({})", bookingId);
@@ -53,7 +54,7 @@ public class BookingController {
         return bookingService.readAll(userId, BookingStateMapper.toBookingState(state), from, size);
     }
 
-    @PatchMapping("/{bookingId}")
+    @PatchMapping(way)
     public BookingDto update(@RequestHeader(header) Long userId,
                              @PathVariable long bookingId,
                              @RequestParam Boolean approved) {
@@ -61,7 +62,7 @@ public class BookingController {
         return bookingService.updateStatus(userId, bookingId, approved);
     }
 
-    @DeleteMapping("/{bookingId}")
+    @DeleteMapping(way)
     public void delete(@RequestHeader(header) Long userId,
                        @PathVariable long bookingId) {
         log.debug("Delete({})", bookingId);

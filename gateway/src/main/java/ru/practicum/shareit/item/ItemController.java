@@ -29,6 +29,7 @@ import javax.validation.constraints.PositiveOrZero;
 public class ItemController {
     private final ItemClient itemClient;
     private final String header = "X-Sharer-User-Id";
+    private final String way = "/{itemId}";
 
     @PostMapping
     public ResponseEntity<Object> create(@RequestHeader(header) long userId,
@@ -37,7 +38,7 @@ public class ItemController {
         return itemClient.create(userId, itemDto);
     }
 
-    @GetMapping("/{itemId}")
+    @GetMapping(way)
     public ResponseEntity<Object> read(@RequestHeader(header) long userId,
                                        @PathVariable long itemId) {
         log.info("Get item {}, userId={}", itemId, userId);
@@ -52,7 +53,7 @@ public class ItemController {
         return itemClient.readAll(userId, from, size);
     }
 
-    @PatchMapping("/{itemId}")
+    @PatchMapping(way)
     public ResponseEntity<Object> update(@RequestHeader(header) long userId,
                                          @PathVariable long itemId,
                                          @RequestBody ItemDto itemDto) {
@@ -60,7 +61,7 @@ public class ItemController {
         return itemClient.update(userId, itemId, itemDto);
     }
 
-    @DeleteMapping("/{itemId}")
+    @DeleteMapping(way)
     public ResponseEntity<Object> delete(@RequestHeader(header) long userId,
                                          @PathVariable long itemId) {
         log.info("Delete item {}, userId={}", itemId, userId);
@@ -76,7 +77,7 @@ public class ItemController {
         return itemClient.search(userId, text, from, size);
     }
 
-    @PostMapping("/{itemId}/comment")
+    @PostMapping(way +"/comment")
     public ResponseEntity<Object> createComment(@RequestHeader(header) long userId,
                                                 @PathVariable long itemId,
                                                 @RequestBody @Valid CommentDto commentDto) {

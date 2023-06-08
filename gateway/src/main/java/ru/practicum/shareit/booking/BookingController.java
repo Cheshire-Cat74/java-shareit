@@ -29,6 +29,7 @@ import javax.validation.constraints.PositiveOrZero;
 public class BookingController {
     private final BookingClient bookingClient;
     private final String header = "X-Sharer-User-Id";
+    private final String way = "/{bookingId}";
 
     @PostMapping
     public ResponseEntity<Object> bookItem(@RequestHeader(header) long userId,
@@ -37,7 +38,7 @@ public class BookingController {
         return bookingClient.bookItem(userId, requestDto);
     }
 
-    @GetMapping("/{bookingId}")
+    @GetMapping(way)
     public ResponseEntity<Object> getBooking(@RequestHeader(header) long userId,
                                              @PathVariable Long bookingId) {
         log.info("Get booking {}, userId={}", bookingId, userId);
@@ -57,7 +58,7 @@ public class BookingController {
         return bookingClient.getBookings(userId, state, from, size);
     }
 
-    @PatchMapping("/{bookingId}")
+    @PatchMapping(way)
     public ResponseEntity<Object> updateBooking(@RequestHeader(header) long userId,
                                                 @PathVariable long bookingId,
                                                 @RequestParam String approved) {
@@ -65,7 +66,7 @@ public class BookingController {
         return bookingClient.updateStatus(userId, bookingId, approved);
     }
 
-    @DeleteMapping("/{bookingId}")
+    @DeleteMapping(way)
     public ResponseEntity<Object> delete(@RequestHeader(header) Long userId,
                                          @PathVariable long bookingId) {
         log.info("Delete booking {}, userId={}", bookingId, userId);
