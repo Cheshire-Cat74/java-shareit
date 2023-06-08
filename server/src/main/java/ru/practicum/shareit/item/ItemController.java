@@ -79,7 +79,7 @@ public class ItemController {
         return itemService.search(userId, text, from, size);
     }
 
-    @PostMapping(way +"/comment")
+    @PostMapping(way + "/comment")
     public CommentDto createComment(@RequestHeader(header) Long userId,
                                     @PathVariable long itemId,
                                     @RequestBody CommentDto commentDto) {

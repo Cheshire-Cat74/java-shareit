@@ -77,7 +77,7 @@ public class ItemController {
         return itemClient.search(userId, text, from, size);
     }
 
-    @PostMapping(way +"/comment")
+    @PostMapping(way + "/comment")
     public ResponseEntity<Object> createComment(@RequestHeader(header) long userId,
                                                 @PathVariable long itemId,
                                                 @RequestBody @Valid CommentDto commentDto) {
